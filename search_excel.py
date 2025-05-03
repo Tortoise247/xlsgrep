@@ -16,8 +16,3 @@ def search_excel(directory, keyword):
                     wb.close()
                 except Exception as e:
                     print(f"Error opening {filepath}: {e}")
-
-if __name__ == "__main__":
-    dir_path = input("検索するフォルダ: ")
-    keyword = input("検索するキーワード: ")
-    search_excel(dir_path, keyword)
