@@ -1,20 +1,20 @@
 # main.py
+from dependency_injector import containers, providers
 from infrastructure.openpyxl_excel_reader import OpenPyxlExcelReader
 from usecases.search_excel_usecase import SearchExcelUsecase
 
+class AppContainer(containers.DeclarativeContainer):
+    excel_reader = providers.Factory(OpenPyxlExcelReader)
+    search_usecase = providers.Factory(SearchExcelUsecase, reader=excel_reader)
+
 def main():
+    container = AppContainer()
+    usecase = container.search_usecase()
+
     dir_path = input("検索するフォルダ: ")
     keyword = input("検索するキーワード: ")
 
-    # 依存性注入
-    reader = OpenPyxlExcelReader()
-    usecase = SearchExcelUsecase(reader)
-
-    # ユースケースの実行
-    results = usecase.search(dir_path, keyword)
-
-    # 結果の表示
-    for result in results:  # SearchResult オブジェクトを直接受け取る
+    for result in usecase.search(dir_path, keyword):
         if result.sheet_title:
             print(f"{result.filepath} | {result.sheet_title}: {result.content}")
         else:
