@@ -14,11 +14,11 @@ def main():
     results = usecase.search(dir_path, keyword)
 
     # 結果の表示
-    for filepath, sheet, content in results:
-        if sheet:
-            print(f"{filepath} | {sheet}: {content}")
+    for result in results:  # SearchResult オブジェクトを直接受け取る
+        if result.sheet_title:
+            print(f"{result.filepath} | {result.sheet_title}: {result.content}")
         else:
-            print(f"{filepath}: {content}")
+            print(f"{result.filepath}: {result.content}")
 
 if __name__ == "__main__":
     main()
