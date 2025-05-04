@@ -3,7 +3,7 @@ from infrastructure.openpyxl_excel_reader import OpenPyxlExcelReader
 from usecases.search_excel_usecase import SearchExcelUsecase
 
 def main():
-    dir_path = input("検索するフォルダ: ")
+    directory = input("検索するフォルダ: ")
     keyword = input("検索するキーワード: ")
 
     # 依存性注入
@@ -11,7 +11,7 @@ def main():
     usecase = SearchExcelUsecase(reader)
 
     # ユースケースの実行
-    results = usecase.search(dir_path, keyword)
+    results = usecase.search(directory, keyword)
 
     # 結果の表示
     for filepath, sheet, content in results:
