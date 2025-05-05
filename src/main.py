@@ -13,11 +13,11 @@ def main():
     usecase = container.search_usecase()
 
     dir_path = input("検索するフォルダ: ")
-    keyword = input("検索するキーワード: ")
+    pattern = input("検索する正規表現パターン: ")
 
     start_time = time.time()  # 処理開始時刻を記録
 
-    for result in usecase.search(dir_path, keyword):
+    for result in usecase.search(dir_path, pattern):
         if result.sheet_title:
             print(f"{result.filepath} | {result.sheet_title}: {result.content}")
         else:
