@@ -1,4 +1,5 @@
 # main.py
+import time  # 処理時間を計測するために time モジュールをインポート
 from dependency_injector import containers, providers
 from infrastructure.openpyxl_excel_reader import OpenPyxlExcelReader
 from usecases.search_excel_usecase import SearchExcelUsecase
@@ -14,11 +15,19 @@ def main():
     dir_path = input("検索するフォルダ: ")
     keyword = input("検索するキーワード: ")
 
+    start_time = time.time()  # 処理開始時刻を記録
+
     for result in usecase.search(dir_path, keyword):
         if result.sheet_title:
             print(f"{result.filepath} | {result.sheet_title}: {result.content}")
         else:
             print(f"{result.filepath}: {result.content}")
 
+    end_time = time.time()  # 処理終了時刻を記録
+    elapsed_time = end_time - start_time  # 処理時間を計算
+
+    print(f"\n処理時間: {elapsed_time:.2f} 秒")
+
 if __name__ == "__main__":
     main()
+git
